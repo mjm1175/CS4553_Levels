@@ -12,6 +12,7 @@ public class PlayerScript : MonoBehaviour
     private NavMeshAgent nma;
     private Animator animator;
 
+
     private float size = 1.0f;
 
     // Start is called before the first frame update
@@ -27,6 +28,8 @@ public class PlayerScript : MonoBehaviour
     // Step event
     void Update()
     {
+        size = transform.localScale.x;
+        Debug.Log("size: " + size);
         Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         //shrinking
         if(transform.localScale.x >.01){
@@ -55,9 +58,9 @@ public class PlayerScript : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (other.gameObject.CompareTag("Pickup") && other.transform.localScale.magnitude <= size){
+        if (other.gameObject.CompareTag("Pickup") && other.transform.localScale.magnitude <= transform.localScale.magnitude){
             // increasing size by half of absorbed object's size
-            size += other.transform.localScale.magnitude / 2;
+            size += other.transform.localScale.magnitude / transform.localScale.magnitude;
             Vector3 newSize = new Vector3(size, size, size);
             transform.localScale = newSize;
 

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 185102455637010903}
   - component: {fileID: 2699181173809814813}
   - component: {fileID: 4500668923149335751}
+  - component: {fileID: -3754975888069808227}
   m_Layer: 0
   m_Name: PP_Rock_Moss_Grown_11
   m_TagString: Pickup
@@ -90,9 +91,25 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4500668923149335752}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -1806810134458854372, guid: 7ed75b99c26237b4d844c1581c5da1b2, type: 3}
+--- !u!208 &-3754975888069808227
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4500668923149335752}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 2.0400002, y: 1.215, z: 2.3000002}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.186, y: 0.001, z: 0.317}
+  m_TimeToStationary: 0.5

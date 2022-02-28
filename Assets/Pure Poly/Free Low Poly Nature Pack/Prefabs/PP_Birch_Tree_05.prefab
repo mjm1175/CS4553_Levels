@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4894925909455266758}
   - component: {fileID: 7208770312383436556}
   - component: {fileID: 9154215057541871320}
+  - component: {fileID: 5709535113308807884}
   m_Layer: 0
   m_Name: PP_Birch_Tree_05
   m_TagString: Pickup
@@ -90,9 +91,25 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9154215057541871321}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -808811649734903215, guid: d721af70c8ba1ab4daa81f30de0dbb54, type: 3}
+--- !u!208 &5709535113308807884
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9154215057541871321}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.42, y: 4.1260004, z: 0.42}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.418, y: -0.735, z: 0.39}
+  m_TimeToStationary: 0.5
