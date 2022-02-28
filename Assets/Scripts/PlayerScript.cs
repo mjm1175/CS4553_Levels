@@ -5,11 +5,12 @@ using UnityEngine.AI;
 
 public class PlayerScript : MonoBehaviour
 {
-    //private Rigidbody rb;
     public float speed = 10;
 
     private NavMeshAgent nma;
     private Animator animator;
+
+    private float size = 1.0f;
 
     // Start is called before the first frame update
     // Create event
@@ -17,7 +18,6 @@ public class PlayerScript : MonoBehaviour
     {
         nma = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
-        //rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -40,13 +40,17 @@ public class PlayerScript : MonoBehaviour
             animator.SetBool("moving", false);
             transform.Rotate(0, input.x * nma.angularSpeed * Time.deltaTime, 0);
         }
+    }
 
-        //Vector3 input = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
+    private void OnCollisionEnter(Collision other) {
+        if (other.gameObject.CompareTag("Pickup") && other.transform.localScale.magnitude <= size){
+            // increasing size by half of absorbed object's size
+            size += other.transform.localScale.magnitude / 2;
+            Vector3 newSize = new Vector3(size, size, size);
+            transform.localScale = newSize;
 
-        //rb.AddForce(input * speed * Time.fixedDeltaTime);
-
-        /*float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");     
-        gameObject.transform.Translate(new Vector3(x,y,0) * speed * Time.deltaTime);*/
+            // destroying the object we collected
+            Destroy(other.gameObject);
+        }
     }
 }
