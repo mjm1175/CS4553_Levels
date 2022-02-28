@@ -6,7 +6,9 @@ using UnityEngine.AI;
 public class PlayerScript : MonoBehaviour
 {
     public float speed = 10;
-
+    public float shrinkingScale;
+    public GameObject bulletPrefab;
+    public Transform spawnPoint;
     private NavMeshAgent nma;
     private Animator animator;
 
@@ -18,6 +20,7 @@ public class PlayerScript : MonoBehaviour
     {
         nma = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        shrinkingScale = -1;
     }
 
     // Update is called once per frame
@@ -25,14 +28,23 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-
+        //shrinking
+        if(transform.localScale.x >.01){
+            transform.localScale  += new Vector3(0.01F, .01f, .01f) * shrinkingScale * Time.deltaTime;
+        }
         if (input.magnitude <= 0){
             animator.SetBool("moving", false);
+            shrinkingScale = -1;
             return;
+        }
+        if(Input.GetKeyDown(KeyCode.Space)){
+            GameObject newBullet = Instantiate(bulletPrefab, spawnPoint.position, transform.rotation);
+            newBullet.GetComponent<Rigidbody>().AddForce(transform.forward * 200);
         }
 
         if (Mathf.Abs(input.y) > 0.01f){
             animator.SetBool("moving", true);
+            shrinkingScale = -3;
             Vector3 destination = transform.position + transform.right * input.x + transform.forward * input.y;
             nma.destination = destination;
         } else {
@@ -42,7 +54,7 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision other) {
+    private void OnTriggerEnter(Collider other) {
         if (other.gameObject.CompareTag("Pickup") && other.transform.localScale.magnitude <= size){
             // increasing size by half of absorbed object's size
             size += other.transform.localScale.magnitude / 2;
