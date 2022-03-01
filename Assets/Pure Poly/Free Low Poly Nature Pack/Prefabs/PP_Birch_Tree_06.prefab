@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4582168971709726199}
   - component: {fileID: 2636820298107493409}
   - component: {fileID: 4764706664125326666}
+  - component: {fileID: 122691648322539989}
   m_Layer: 0
   m_Name: PP_Birch_Tree_06
   m_TagString: Pickup
@@ -113,3 +114,16 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: -0.19900002, y: -0.721, z: 0.11400001}
   m_TimeToStationary: 0.5
+--- !u!114 &122691648322539989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2636820298107493410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f74afef5cee8bd45b7c0e8aef5d0425, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: 103

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2631254705330034779}
   - component: {fileID: 4577034113271871887}
   - component: {fileID: -7209908574440868862}
+  - component: {fileID: 3732964130217675364}
   m_Layer: 0
   m_Name: PP_Rock_Moss_Grown_09
   m_TagString: Pickup
@@ -113,3 +114,16 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: -0.19800001, y: 0.18800001, z: 0.067}
   m_TimeToStationary: 0.5
+--- !u!114 &3732964130217675364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4577034113271871886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f74afef5cee8bd45b7c0e8aef5d0425, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: 103
