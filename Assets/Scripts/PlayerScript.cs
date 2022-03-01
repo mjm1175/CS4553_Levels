@@ -61,6 +61,7 @@ public class PlayerScript : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.Space)){
             GameObject newBullet = Instantiate(bulletPrefab, spawnPoint.position, transform.rotation);
+            newBullet.GetComponent<Renderer>().material.color = color_colors[curr_color_id];
             newBullet.GetComponent<Rigidbody>().AddForce(transform.forward * 200);
         }
 
