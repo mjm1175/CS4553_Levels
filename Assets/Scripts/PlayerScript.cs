@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -11,7 +12,6 @@ public class PlayerScript : MonoBehaviour
     public Transform spawnPoint;
     private NavMeshAgent nma;
     private Animator animator;
-
 
     private float size = 1.0f;
 
@@ -54,6 +54,10 @@ public class PlayerScript : MonoBehaviour
             nma.destination = transform.position;
             animator.SetBool("moving", false);
             transform.Rotate(0, input.x * nma.angularSpeed * Time.deltaTime, 0);
+        }
+
+        if (size <= 0.01) {
+            SceneManager.LoadScene("Game_Over");
         }
     }
 
