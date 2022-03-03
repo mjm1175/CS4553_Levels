@@ -112,12 +112,12 @@ public class PlayerScript : MonoBehaviour
         }
 
         // win
-        if (transform.localScale.x > 15 && GlobalVars.level == 1){
+        if (transform.localScale.x > 10 && GlobalVars.level == 1){
             // could do smoother transition here... maybe win screen
             GlobalVars.level = 2;
             SceneManager.LoadScene("NextLevelScene");
         }
-        else if (transform.localScale.x > 15 && GlobalVars.level == 2){
+        else if (transform.localScale.x > 20 && GlobalVars.level == 2){
             // could do smoother transition here... maybe win screen
             GlobalVars.level = 1;
             SceneManager.LoadScene("Victory");
@@ -129,7 +129,7 @@ public class PlayerScript : MonoBehaviour
             GameObject newBullet = Instantiate(bulletPrefab, spawnPoint.position, transform.rotation);
             newBullet.GetComponent<Renderer>().material.color = color_colors[curr_color_id];
             newBullet.transform.localScale *= transform.localScale.x;
-            newBullet.GetComponent<Rigidbody>().AddForce(transform.forward * 200 *size);
+            newBullet.GetComponent<Rigidbody>().AddForce(transform.forward * 400);
         }
 
         //shrinking
