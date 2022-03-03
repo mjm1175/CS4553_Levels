@@ -15,6 +15,7 @@ public class PlayerScript : MonoBehaviour
     private bool dying = false;
 
     public static float size = 1.0f;
+    private float lastSize = 1.0f;
     //private float maxSize = 100f;
 
     public static int level;
@@ -45,6 +46,8 @@ public class PlayerScript : MonoBehaviour
     // Step event
     void Update()
     {
+
+        //AdjustCamera();
 
         Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         size = transform.localScale.x;
@@ -166,6 +169,19 @@ public class PlayerScript : MonoBehaviour
                 // destroying the object we collected
                 Destroy(other.gameObject);                
             }
+        }
+    }
+
+
+    private void AdjustCamera(){
+        // increased by more than 5
+        if ((size - lastSize) >= 5){
+            Camera.main.fieldOfView += 5;
+            lastSize = size;
+        // decreased by more than 5
+        } else if ((lastSize - size) >= 5){
+            Camera.main.fieldOfView += 5;
+            lastSize = size;
         }
     }
 
