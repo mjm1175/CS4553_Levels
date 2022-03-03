@@ -129,7 +129,7 @@ public class PlayerScript : MonoBehaviour
             GameObject newBullet = Instantiate(bulletPrefab, spawnPoint.position, transform.rotation);
             newBullet.GetComponent<Renderer>().material.color = color_colors[curr_color_id];
             newBullet.transform.localScale *= transform.localScale.x;
-            newBullet.GetComponent<Rigidbody>().AddForce(transform.forward * 400);
+            newBullet.GetComponent<Rigidbody>().AddForce(transform.forward * 400*size);
         }
 
         //shrinking
