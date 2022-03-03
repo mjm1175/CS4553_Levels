@@ -15,7 +15,9 @@ public class PlayerScript : MonoBehaviour
     private bool dying = false;
 
     private float size = 1.0f;
-    private float maxSize = 100f;
+    //private float maxSize = 100f;
+
+    public int level;
     public SizeBar sizeBar;
 
     private Renderer rnd;
@@ -23,9 +25,9 @@ public class PlayerScript : MonoBehaviour
     //private int color_id_sz = 5;
     private int curr_color_id = 0;     // corresponds to 'r'
     private char curr_color_color = 'r';        // used for pickup
-    private char[] color_id = {'r', 'g', 'b', 'y', 'p'};
-    //                                             'r'                                          'g'                                 'b'                                     'y'                                         'p'
-    private Color[] color_colors = {new Color(0.706f, 0.059f, 0.059f, 1.0f), new Color(0.416f, 0.659f, 0.204f, 1.0f), new Color(0.216f, 0.384f, 0.945f, 1.0f), new Color(0.867f, 0.745f, 0.0f, 1.0f), new Color(0.659f, 0.4f, 0.953f, 1.0f)};
+    private char[] color_id = {'r', 'g', 'b', 'y', 'p', 'a'};
+    //                                             'r'                                          'g'                                 'b'                                     'y'                                         'p'                                 'a' (gray)
+    private Color[] color_colors = {new Color(0.706f, 0.059f, 0.059f, 1.0f), new Color(0.416f, 0.659f, 0.204f, 1.0f), new Color(0.216f, 0.384f, 0.945f, 1.0f), new Color(0.867f, 0.745f, 0.0f, 1.0f), new Color(0.659f, 0.4f, 0.953f, 1.0f), new Color(0.4622642f, 0.4622642f, 0.4622642f, 1.0f)};
 
     private Coroutine thisCollisionCrt;
 
@@ -43,6 +45,7 @@ public class PlayerScript : MonoBehaviour
     // Step event
     void Update()
     {
+
         Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         size = transform.localScale.x;
         sizeBar.SetSize(size);
@@ -80,7 +83,13 @@ public class PlayerScript : MonoBehaviour
                 curr_color_id = 4;
                 curr_color_color = color_id[curr_color_id];
                 rnd.material.color = color_colors[curr_color_id];
-                break;                
+                break;    
+            // a (gray)
+            case "6": 
+                curr_color_id = 5;
+                curr_color_color = color_id[curr_color_id];
+                rnd.material.color = color_colors[curr_color_id];
+                break;       
         }
         /*if (Input.GetKeyDown(KeyCode.C)){
             curr_color_id++;
@@ -97,6 +106,12 @@ public class PlayerScript : MonoBehaviour
             } 
             dying = true;
             return;
+        }
+
+        // win
+        if (transform.localScale.x > 50 && level == 1){
+            // could do smoother transition here... maybe win screen
+            SceneManager.LoadScene("CityLevel");
         }
 
         // shooting
@@ -173,6 +188,23 @@ public class PlayerScript : MonoBehaviour
             } else {
                 //maybe we can add some bullet like objects spawning to indicate that losing health
                 thisCollisionCrt = StartCoroutine(GetHurt(other.transform.localScale.magnitude, size));                
+            }
+        } else if (other.gameObject.CompareTag("Car")){
+            if (other.transform.localScale.magnitude <= transform.localScale.magnitude && curr_color_color == 'b'){
+                // increasing size by half of absorbed object's size
+                size += other.transform.localScale.magnitude / transform.localScale.magnitude;
+                Vector3 newSize = new Vector3(size, size, size);
+                transform.localScale = newSize;
+
+                // destroying the object we collected
+                Destroy(other.gameObject);  
+            } else {
+                if (!dying){
+                    StopAllCoroutines();
+                    StartCoroutine(DeathScene());
+                } 
+                dying = true;
+                return;
             }
         }
     }
