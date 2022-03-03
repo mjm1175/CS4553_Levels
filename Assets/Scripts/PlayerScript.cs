@@ -18,7 +18,7 @@ public class PlayerScript : MonoBehaviour
     private float lastSize = 1.0f;
     //private float maxSize = 100f;
 
-    public static int level;
+    //public static int level;
     public SizeBar sizeBar;
 
     private Renderer rnd;
@@ -112,13 +112,14 @@ public class PlayerScript : MonoBehaviour
         }
 
         // win
-        if (transform.localScale.x > 15 && level == 1){
+        if (transform.localScale.x > 15 && GlobalVars.level == 1){
             // could do smoother transition here... maybe win screen
-            level = 2;
-            SceneManager.LoadScene("CityLevel");
+            GlobalVars.level = 2;
+            SceneManager.LoadScene("NextLevelScene");
         }
-        else if (transform.localScale.x > 15 && level == 2){
+        else if (transform.localScale.x > 15 && GlobalVars.level == 2){
             // could do smoother transition here... maybe win screen
+            GlobalVars.level = 1;
             SceneManager.LoadScene("Victory");
         }
 
@@ -157,7 +158,7 @@ public class PlayerScript : MonoBehaviour
         if (other.gameObject.CompareTag("Pickup") && other.transform.localScale.magnitude <= transform.localScale.magnitude){
             if (other.GetComponent<PickupScript>().color == curr_color_color){
                 // increasing size by half of absorbed object's size
-                if(level == 1){
+                if(GlobalVars.level == 1){
                     size += other.transform.localScale.magnitude / (transform.localScale.magnitude * 2) ;
                 }
                 else{
