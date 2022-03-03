@@ -19,8 +19,8 @@ public class Bullet : MonoBehaviour
             Enemy es = other.gameObject.GetComponent<Enemy>();
             es.Die();
             //Destroy(other.gameObject);
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
     }
 
 }

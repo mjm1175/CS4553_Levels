@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class Game_Over: MonoBehaviour
 {
     public void PlayAgain () {
+        PlayerScript.level = 1;
         SceneManager.LoadScene("ForestLevel");
     }
 }

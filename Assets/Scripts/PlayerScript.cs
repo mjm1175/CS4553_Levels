@@ -14,10 +14,10 @@ public class PlayerScript : MonoBehaviour
     private Animator animator;
     private bool dying = false;
 
-    private float size = 1.0f;
+    public static float size = 1.0f;
     //private float maxSize = 100f;
 
-    public int level;
+    public static int level;
     public SizeBar sizeBar;
 
     private Renderer rnd;
@@ -109,14 +109,19 @@ public class PlayerScript : MonoBehaviour
         }
 
         // win
-        if (transform.localScale.x > 50 && level == 1){
+        if (transform.localScale.x > 15 && level == 1){
             // could do smoother transition here... maybe win screen
+            level = 2;
             SceneManager.LoadScene("CityLevel");
+        }
+        else if (transform.localScale.x > 15 && level == 2){
+            // could do smoother transition here... maybe win screen
+            SceneManager.LoadScene("Victory");
         }
 
         // shooting
         if(Input.GetKeyDown(KeyCode.Space)){
-            transform.localScale  += new Vector3(0.01F, .01f, .01f) * transform.localScale.x/10f;
+            transform.localScale  -= new Vector3(0.01F, .01f, .01f) * transform.localScale.x/10f;
             GameObject newBullet = Instantiate(bulletPrefab, spawnPoint.position, transform.rotation);
             newBullet.GetComponent<Renderer>().material.color = color_colors[curr_color_id];
             newBullet.transform.localScale *= transform.localScale.x;
@@ -149,7 +154,12 @@ public class PlayerScript : MonoBehaviour
         if (other.gameObject.CompareTag("Pickup") && other.transform.localScale.magnitude <= transform.localScale.magnitude){
             if (other.GetComponent<PickupScript>().color == curr_color_color){
                 // increasing size by half of absorbed object's size
-                size += other.transform.localScale.magnitude / transform.localScale.magnitude;
+                if(level == 1){
+                    size += other.transform.localScale.magnitude / (transform.localScale.magnitude * 2) ;
+                }
+                else{
+                    size += other.transform.localScale.magnitude / (transform.localScale.magnitude * 4);
+                }
                 Vector3 newSize = new Vector3(size, size, size);
                 transform.localScale = newSize;
 
@@ -190,7 +200,7 @@ public class PlayerScript : MonoBehaviour
                 thisCollisionCrt = StartCoroutine(GetHurt(other.transform.localScale.magnitude, size));                
             }
         } else if (other.gameObject.CompareTag("Car")){
-            if (other.transform.localScale.magnitude <= transform.localScale.magnitude && curr_color_color == 'b'){
+            if (other.transform.localScale.magnitude / 1.2f <= transform.localScale.magnitude && curr_color_color == 'b'){
                 // increasing size by half of absorbed object's size
                 size += other.transform.localScale.magnitude / transform.localScale.magnitude;
                 Vector3 newSize = new Vector3(size, size, size);
